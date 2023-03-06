@@ -24,18 +24,20 @@ public class UserInterface {
         renderer.clearSceen();
         renderer.display(22, 3, marquee);
 
-        renderer.display(26, 16, "Welcome to BALANCE - a sparring game of physical and mental strategy.");
-        renderer.display(18, 28, "The goal is to knock your opponent off their grid while keeping yourself on your grid.");
+        renderer.display(25, 16, "Welcome to BALANCE - a sparring game of physical and mental strategy.");
+        renderer.display(18, 17, "The goal is to knock your opponent off their grid while keeping yourself on your grid.");
         
-        renderer.display(14, 24, "Players take turns, beginning with player 1. Each turn consists of three actions:");
-        renderer.display(10, 26, "1) Your BREATH action allows you to move one space toward YIN (down) or YANG (up).");
-        renderer.display(10, 27, "2) Your POSITION action allows you to move one space FORWARD (toward opponent) or BACK (away from opponent).");
-        renderer.display(10, 28, "3) Finally, you choose an ACTION that will affect your opponent and - to a lesser extent - yourself.");
+        renderer.display(19, 21, "Players take turns, beginning with player 1. Each turn consists of three actions:");
+        renderer.display(19, 23, "1) Your BREATH action allows you to move one space toward YIN (down) or YANG (up).");
+        renderer.display(19, 24, "2) Your POSITION action allows you to move one space FORWARD (toward opponent) or ");
+        renderer.display(22, 25, "BACK (away from opponent).");
+        renderer.display(19, 26, "3) Finally, you choose an ACTION that will affect your opponent and - to a");
+        renderer.display(22, 27, "lesser extent - yourself.");
 
-        renderer.display(37, 18, "BALANCE", Color.CYAN, Layout.LEFT_TO_RIGHT);
-        renderer.display(18, 26, "BREATH", Color.CYAN, Layout.LEFT_TO_RIGHT);
-        renderer.display(18, 27, "POSITION", Color.CYAN, Layout.LEFT_TO_RIGHT);
-        renderer.display(36, 28, "ACTION", Color.CYAN, Layout.LEFT_TO_RIGHT);
+        renderer.display(36, 16, "BALANCE", Color.CYAN, Layout.LEFT_TO_RIGHT);
+        renderer.display(27, 23, "BREATH", Color.CYAN, Layout.LEFT_TO_RIGHT);
+        renderer.display(27, 24, "POSITION", Color.CYAN, Layout.LEFT_TO_RIGHT);
+        renderer.display(45, 26, "ACTION", Color.CYAN, Layout.LEFT_TO_RIGHT);
 
         renderer.displaySceen();
 
@@ -43,42 +45,20 @@ public class UserInterface {
     }
 
     public String getForwardBackward(Player player) {
-        renderer.displayPlayerName(player);
-
-        return keyboard.getUserInput("CHOOSE YOUR *POSITION* MOVE (FORWARD/BACK)", Arrays.asList("FORWARD", "BACK"));
+        return keyboard.getUserInput(player, "CHOOSE YOUR *POSITION* MOVE (FORWARD/BACK)", Arrays.asList("FORWARD", "BACK"));
     }
     
     public String getYinYang(Player player) {
-        renderer.displayPlayerName(player);
-
-        return keyboard.getUserInput("CHOOSE YOUR *BREATH* MOVE (YIN/YANG)", Arrays.asList("YIN", "YANG"));
+        return keyboard.getUserInput(player, "CHOOSE YOUR *BREATH* MOVE (YIN/YANG)", Arrays.asList("YIN", "YANG"));
     }
 
     public String getPushPull(Player player) {
         renderer.displayPlayerName(player);
-        System.out.println(StringUtils.highlight("CHOOSE YOUR ACTION:\n"));
+        System.out.println(StringUtils.highlight(" CHOOSE YOUR ACTION:\n"));
         System.out.println(StringUtils.highlight("*PUSH* = You forward 1, yang 1. Opponent back 2, yin 1"));
         System.out.println(StringUtils.highlight("*PULL* = You back 1, yin 1. Opponent forward 2, yang 1"));
 
         return keyboard.getUserInput("YOUR CHOICE (*PUSH*/*PULL*)", Arrays.asList("PUSH", "PULL"));
-    }
-
-    public void displayGameState (Player player1, Platform platform1, Player player2, Platform platform2) {
-        renderer.clearSceen();
-
-        displayPlatform(platform1);
-
-        if (!logic.isPlayerOutOfBounds(player1, platform1)) {
-            renderer.display(player1);
-        }
-
-        displayPlatform(platform2);
-
-        if (!logic.isPlayerOutOfBounds(player2, platform2)) {
-            renderer.display(player2);
-        }
-
-        renderer.displaySceen();
     }
 
     private void displayPlatform(Platform platform) {
@@ -103,5 +83,23 @@ public class UserInterface {
         renderer.display(x+26, y+22, "YIN", Color.WHITE, Layout.LEFT_TO_RIGHT);
         
         renderer.display(platform);
+    }
+
+    public void displayGameState (Player player1, Platform platform1, Player player2, Platform platform2) {
+        renderer.clearSceen();
+
+        displayPlatform(platform1);
+
+        if (!logic.isPlayerOutOfBounds(player1, platform1)) {
+            renderer.display(player1);
+        }
+
+        displayPlatform(platform2);
+
+        if (!logic.isPlayerOutOfBounds(player2, platform2)) {
+            renderer.display(player2);
+        }
+
+        renderer.displaySceen();
     }
 }

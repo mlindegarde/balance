@@ -52,7 +52,9 @@ public class Renderer {
         int dY = (layout == Layout.TOP_TO_BOTTOM)? 1 : 0;
 
         for (int i = 0; i < message.length(); i++) {
-            buffer[posY][posX] = new Pixel(color, message.charAt(i));
+            if (posY < screenHeight && posX < screenWidth) {
+                buffer[posY][posX] = new Pixel(color, message.charAt(i));
+            }
 
             posX += dX;
             posY += dY;
@@ -70,7 +72,7 @@ public class Renderer {
     }
 
     public void displayPlayerName (Player player) {
-        System.out.print(StringUtils.color(player.getName() + "! ", player.getColor()));
+        System.out.print(StringUtils.color(player.getName() + "!", player.getColor()));
     }
 
     public void clearSceen() {
@@ -108,11 +110,11 @@ public class Renderer {
                 sb.append(pixel.getColor());
                 sb.append(pixel.getValue());
             } else {
-                //sb.append(Color.BACKGROUND_BLUE);
+                // sb.append(Color.BACKGROUND_BLUE);
                 sb.append(" ");
             }
         }
 
-        System.out.println(sb);
+        System.out.println(sb + Color.RESET);
     }
 }

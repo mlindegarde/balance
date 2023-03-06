@@ -12,7 +12,7 @@ import com.fullboar.examples.utilities.StringUtils;
 
 public class Game 
 {
-    private Renderer renderer = new Renderer(120, 40);
+    private Renderer renderer = new Renderer(120, 32);
     private Keyboard keyboard = new Keyboard();
     private GameLogic logic = new GameLogic();
     private UserInterface ui = new UserInterface(renderer, keyboard, logic);
@@ -20,8 +20,8 @@ public class Game
     private Marquee marquee = new Marquee(Color.MAGENTA);
     private Player player1 = new Player(Direction.RIGHT, Color.YELLOW);
     private Player player2 = new Player(Direction.LEFT, Color.GREEN);
-    private Platform platform1 = new Platform(4, 7, player1.getFacing(), player1.getColor());
-    private Platform platform2 = new Platform(63, 7, player2.getFacing(), player2.getColor());
+    private Platform platform1 = new Platform(4, 5, player1.getFacing(), player1.getColor());
+    private Platform platform2 = new Platform(63, 5, player2.getFacing(), player2.getColor());
 
     private GameState gameState = GameState.INTRO;
     private int turnCount = 0;
@@ -45,9 +45,17 @@ public class Game
         String input = ui.displayRulesAndConfirmNewGame(marquee);
 
         gameState = input.equalsIgnoreCase("Y")? GameState.SET_UP : GameState.EXITING;
+
+        if (gameState == GameState.EXITING) {
+            System.out.println(StringUtils.color("OK WEIRD CHOICE BYEEEEEEEEEE", Color.RED));
+        }
     }
 
     private void setUp () {
+        renderer.clearSceen();
+        renderer.display(marquee);
+        renderer.displaySceen();
+
         player1.setName(keyboard.getUserInput("PLAYER 1 NAME", player1.getColor()));
         player1.setOpponent(player2);
         player1.setPosition(platform1.getX()+24, platform1.getY()+10);
@@ -108,8 +116,6 @@ public class Game
     }
 
     private void gameOver () {
-        renderer.clearSceen();
-
         ui.displayGameState(player1, platform1, player2, platform2);
 
         System.out.println(StringUtils.color("GAME OVER", Color.RED));
@@ -126,6 +132,10 @@ public class Game
         System.out.println(turnCount + " turns played");
 
         gameState = GameState.EXITING;
+    }
+
+    private void exiting() {
+        keyboard.close();
     }
 
     private void run() throws InterruptedException {
@@ -152,7 +162,7 @@ public class Game
                     break;
 
                 case EXITING:
-                    keyboard.close();
+                    exiting();
                     break;
             }
         }
