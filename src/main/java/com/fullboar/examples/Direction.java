@@ -1,4 +1,4 @@
-package com.fullboar.examples.subsystems.rendering;
+package com.fullboar.examples;
 
 public enum Direction {
     UP,

@@ -1,6 +1,6 @@
 package com.fullboar.examples.sprites;
 
-import com.fullboar.examples.subsystems.rendering.Direction;
+import com.fullboar.examples.Direction;
 
 public class Marquee extends Sprite {
     @Override

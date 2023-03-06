@@ -2,12 +2,12 @@ package com.fullboar.examples.subsystems.input;
 
 import java.util.Arrays;
 
+import com.fullboar.examples.Direction;
 import com.fullboar.examples.sprites.Marquee;
 import com.fullboar.examples.sprites.Platform;
 import com.fullboar.examples.sprites.Player;
 import com.fullboar.examples.subsystems.logic.GameLogic;
 import com.fullboar.examples.subsystems.rendering.Color;
-import com.fullboar.examples.subsystems.rendering.Direction;
 import com.fullboar.examples.subsystems.rendering.Layout;
 import com.fullboar.examples.subsystems.rendering.Renderer;
 import com.fullboar.examples.utilities.StringUtils;

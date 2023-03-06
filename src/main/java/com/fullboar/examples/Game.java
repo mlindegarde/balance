@@ -7,7 +7,6 @@ import com.fullboar.examples.subsystems.input.Keyboard;
 import com.fullboar.examples.subsystems.input.UserInterface;
 import com.fullboar.examples.subsystems.logic.GameLogic;
 import com.fullboar.examples.subsystems.rendering.Color;
-import com.fullboar.examples.subsystems.rendering.Direction;
 import com.fullboar.examples.subsystems.rendering.Renderer;
 import com.fullboar.examples.utilities.StringUtils;
 
@@ -25,10 +24,9 @@ public class Game
     private Platform platform2 = new Platform(63, 7, player2.getFacing(), player2.getColor());
 
     private GameState gameState = GameState.INTRO;
-    private Player winner = null;
     private int turnCount = 0;
 
-    private void playIntroAnimation() throws InterruptedException {
+    private void intro() throws InterruptedException {
         marquee.setPosition(22, -11);
 
         while (marquee.getY() < 3) {
@@ -43,20 +41,20 @@ public class Game
         gameState = GameState.RULES;
     }
 
-    private void displayRules() {
+    private void rules() {
         String input = ui.displayRulesAndConfirmNewGame(marquee);
 
         gameState = input.equalsIgnoreCase("Y")? GameState.SET_UP : GameState.EXITING;
     }
 
     private void setUp () {
-        renderer.clearSceen();
-
         player1.setName(keyboard.getUserInput("PLAYER 1 NAME", player1.getColor()));
-        player2.setName(keyboard.getUserInput("PLAYER 2 NAME", player2.getColor()));
-
         player1.setOpponent(player2);
+        player1.setPosition(platform1.getX()+24, platform1.getY()+10);
+
+        player2.setName(keyboard.getUserInput("PLAYER 2 NAME", player2.getColor()));
         player2.setOpponent(player1);
+        player2.setPosition(platform2.getX()+24, platform2.getY()+10);
 
         gameState = GameState.PLAYING_GAME;
     }
@@ -65,16 +63,14 @@ public class Game
         Player activePlayer = player1;
         Player inactivePlayer = player2;
 
-        player1.setPosition(platform1.getX()+24, platform1.getY()+10);
-        player2.setPosition(platform2.getX()+24, platform2.getY()+10);
-        ui.displayGameState(player1, platform1, player2, platform2);
-
         while (gameState != GameState.GAME_OVER) {
             TurnState turnState = TurnState.YIN_YANG;
 
             turnCount++;
 
-            while (turnState != TurnState.OVER && winner == null) {
+            while (turnState != TurnState.OVER && gameState != GameState.GAME_OVER) {
+                ui.displayGameState(player1, platform1, player2, platform2);
+
                 switch (turnState) {
                     case YIN_YANG:
                         logic.updateYinYang(
@@ -101,12 +97,8 @@ public class Game
                         break;
                 }
 
-                winner = logic.getWinner(player1, platform1, player2, platform2);
-
-                if (winner != null) {
+                if (logic.isGamOver(player1, platform1, player2, platform2)) {
                     gameState = GameState.GAME_OVER;
-                } else {
-                    ui.displayGameState(player1, platform1, player2, platform2);
                 }
             }
 
@@ -121,7 +113,15 @@ public class Game
         ui.displayGameState(player1, platform1, player2, platform2);
 
         System.out.println(StringUtils.color("GAME OVER", Color.RED));
-        renderer.displayPlayerName(winner);
+
+        if (player1.isOutOfBounds() && player2.isOutOfBounds()) {
+            System.out.print(StringUtils.color("NO ONE", Color.YELLOW));
+        } else if (player2.isOutOfBounds()) {
+            renderer.displayPlayerName(player1);
+        } else {
+            renderer.displayPlayerName(player2);
+        }
+
         System.out.println(" WINS");
         System.out.println(turnCount + " turns played");
 
@@ -132,11 +132,11 @@ public class Game
         while (gameState != GameState.EXITING) {
             switch (gameState) {
                 case INTRO: 
-                    playIntroAnimation(); 
+                    intro(); 
                     break;
 
                 case RULES: 
-                    displayRules();
+                    rules();
                     break;
 
                 case SET_UP: 

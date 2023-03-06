@@ -46,15 +46,10 @@ public class GameLogic {
             player.getY() > platform.getY() + 20);
     }
 
-    public Player getWinner(Player player1, Platform platform1, Player player2, Platform platform2) {
-        if (isPlayerOutOfBounds(player1, platform1)) {
-            return player2;
-        }
+    public boolean isGamOver(Player player1, Platform platform1, Player player2, Platform platform2) {
+        player1.setOutOfBounds(isPlayerOutOfBounds(player1, platform1));
+        player2.setOutOfBounds(isPlayerOutOfBounds(player2, platform2));
 
-        if (isPlayerOutOfBounds(player2, platform2)) {
-            return player1;
-        }
-
-        return null;
+        return player1.isOutOfBounds() || player2.isOutOfBounds();
     }
 }
