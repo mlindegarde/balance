@@ -152,6 +152,7 @@ public class Game
                     break;
 
                 case EXITING:
+                    keyboard.close();
                     break;
             }
         }

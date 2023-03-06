@@ -31,4 +31,8 @@ public class Keyboard {
         System.out.print(StringUtils.color(prompt, color) + ": ");
         return scanner.nextLine();
     }
+
+    public void close() {
+        scanner.close();
+    }
 }
