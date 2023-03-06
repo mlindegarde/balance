@@ -62,8 +62,8 @@ public class UserInterface {
     }
 
     private void displayPlatform(Platform platform) {
-        int x = platform.getX()-2;
-        int y = platform.getY()-1;
+        final int x = platform.getX()-2;
+        final int y = platform.getY()-1;
 
         renderer.display(
             (platform.getFacing() == Direction.RIGHT)? x : x+54, 

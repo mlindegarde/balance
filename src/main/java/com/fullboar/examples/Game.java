@@ -12,16 +12,16 @@ import com.fullboar.examples.utilities.StringUtils;
 
 public class Game 
 {
-    private Renderer renderer = new Renderer(120, 32);
-    private Keyboard keyboard = new Keyboard();
-    private GameLogic logic = new GameLogic();
-    private UserInterface ui = new UserInterface(renderer, keyboard, logic);
+    private final Renderer renderer = new Renderer(120, 32);
+    private final Keyboard keyboard = new Keyboard();
+    private final GameLogic logic = new GameLogic();
+    private final UserInterface ui = new UserInterface(renderer, keyboard, logic);
 
-    private Marquee marquee = new Marquee(Color.MAGENTA);
-    private Player player1 = new Player(Direction.RIGHT, Color.YELLOW);
-    private Player player2 = new Player(Direction.LEFT, Color.GREEN);
-    private Platform platform1 = new Platform(4, 5, player1.getFacing(), player1.getColor());
-    private Platform platform2 = new Platform(63, 5, player2.getFacing(), player2.getColor());
+    private final Marquee marquee = new Marquee(Color.MAGENTA);
+    private final Player player1 = new Player(Direction.RIGHT, Color.YELLOW);
+    private final Player player2 = new Player(Direction.LEFT, Color.GREEN);
+    private final Platform platform1 = new Platform(4, 5, player1.getFacing(), player1.getColor());
+    private final Platform platform2 = new Platform(63, 5, player2.getFacing(), player2.getColor());
 
     private GameState gameState = GameState.INTRO;
     private int turnCount = 0;
@@ -42,7 +42,7 @@ public class Game
     }
 
     private void rules() {
-        String input = ui.displayRulesAndConfirmNewGame(marquee);
+        final String input = ui.displayRulesAndConfirmNewGame(marquee);
 
         gameState = input.equalsIgnoreCase("Y")? GameState.SET_UP : GameState.EXITING;
 

@@ -5,12 +5,13 @@ import com.fullboar.examples.sprites.Sprite;
 import com.fullboar.examples.utilities.StringUtils;
 
 public class Renderer {
-    private Pixel[][] buffer;
-    private int screenWidth;
-    private int screenHeight;
+    private final Pixel[][] buffer;
+    private final int screenWidth;
+    private final int screenHeight;
 
     public Renderer (int screenWidth, int screenHeight) {
         buffer = new Pixel[screenHeight][screenWidth];
+        
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
     }
@@ -24,11 +25,11 @@ public class Renderer {
     }
 
     public void display(int x, int y, Sprite sprite) {
-        String[] image = sprite.getImage();
-        String color = sprite.getColor();
+        final String[] image = sprite.getImage();
+        final String color = sprite.getColor();
 
-        int height = image.length;
-        int width = image[0].length();
+        final int height = image.length;
+        final int width = image[0].length();
 
         for (int r = 0; r < height; r++) {
             for (int c = 0; c < width; c++){
@@ -45,11 +46,11 @@ public class Renderer {
     }
 
     public void display(int x, int y, String message, String color, Layout layout) {
+        final int dX = (layout == Layout.LEFT_TO_RIGHT)? 1 : 0;
+        final int dY = (layout == Layout.TOP_TO_BOTTOM)? 1 : 0;
+
         int posX = x;
         int posY = y;
-
-        int dX = (layout == Layout.LEFT_TO_RIGHT)? 1 : 0;
-        int dY = (layout == Layout.TOP_TO_BOTTOM)? 1 : 0;
 
         for (int i = 0; i < message.length(); i++) {
             if (posY < screenHeight && posX < screenWidth) {
@@ -103,7 +104,7 @@ public class Renderer {
     }
 
     private void renderLine(Pixel[] pixels) {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
         for (Pixel pixel : pixels) {
             if (pixel != null) {
