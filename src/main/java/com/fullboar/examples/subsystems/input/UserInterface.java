@@ -7,6 +7,7 @@ import com.fullboar.examples.sprites.Marquee;
 import com.fullboar.examples.sprites.Platform;
 import com.fullboar.examples.sprites.Player;
 import com.fullboar.examples.subsystems.logic.GameLogic;
+import com.fullboar.examples.subsystems.rendering.BoxDrawing;
 import com.fullboar.examples.subsystems.rendering.Color;
 import com.fullboar.examples.subsystems.rendering.Layout;
 import com.fullboar.examples.subsystems.rendering.Renderer;
@@ -20,9 +21,10 @@ public class UserInterface {
     private final Keyboard keyboard;
     private final GameLogic logic;
 
-    public String displayRulesAndConfirmNewGame(Marquee marquee) {
+    public String displayRulesAndConfirmNewGame(Marquee marquee, Marquee marqueeShadow) {
         renderer.clearSceen();
-        renderer.display(22, 3, marquee);
+        renderer.display(marqueeShadow);
+        renderer.display(marquee);
 
         renderer.display(25, 16, "Welcome to BALANCE - a sparring game of physical and mental strategy.");
         renderer.display(18, 17, "The goal is to knock your opponent off their grid while keeping yourself on your grid.");
@@ -41,24 +43,32 @@ public class UserInterface {
 
         renderer.displaySceen();
 
+        displaySeparator();
         return keyboard.getUserInput("Start *NEW GAME* (Y/N)", Arrays.asList("Y", "N"));
     }
 
     public String getForwardBackward(Player player) {
+        displaySeparator();
         return keyboard.getUserInput(player, "CHOOSE YOUR *POSITION* MOVE (FORWARD/BACK)", Arrays.asList("FORWARD", "BACK"));
     }
     
     public String getYinYang(Player player) {
+        displaySeparator();
         return keyboard.getUserInput(player, "CHOOSE YOUR *BREATH* MOVE (YIN/YANG)", Arrays.asList("YIN", "YANG"));
     }
 
     public String getPushPull(Player player) {
+        System.out.println(BoxDrawing.DOUBLE_HORIZONTAL.repeat(120));
         renderer.displayPlayerName(player);
         System.out.println(StringUtils.highlight(" CHOOSE YOUR ACTION:\n"));
         System.out.println(StringUtils.highlight("*PUSH* = You forward 1, yang 1. Opponent back 2, yin 1"));
         System.out.println(StringUtils.highlight("*PULL* = You back 1, yin 1. Opponent forward 2, yang 1"));
 
         return keyboard.getUserInput("YOUR CHOICE (*PUSH*/*PULL*)", Arrays.asList("PUSH", "PULL"));
+    }
+
+    private void displaySeparator() {
+        System.out.println(BoxDrawing.DOUBLE_HORIZONTAL.repeat(renderer.getScreenWidth()));
     }
 
     private void displayPlatform(Platform platform) {

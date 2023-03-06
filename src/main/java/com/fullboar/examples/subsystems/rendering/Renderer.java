@@ -4,10 +4,12 @@ import com.fullboar.examples.sprites.Player;
 import com.fullboar.examples.sprites.Sprite;
 import com.fullboar.examples.utilities.StringUtils;
 
+import lombok.Getter;
+
 public class Renderer {
     private final Pixel[][] buffer;
-    private final int screenWidth;
-    private final int screenHeight;
+    @Getter private final int screenWidth;
+    @Getter private final int screenHeight;
 
     public Renderer (int screenWidth, int screenHeight) {
         buffer = new Pixel[screenHeight][screenWidth];

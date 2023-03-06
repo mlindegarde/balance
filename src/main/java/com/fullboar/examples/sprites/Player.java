@@ -16,7 +16,7 @@ public class Player extends Sprite {
     @Override
     public String[] getImage() {
         return new String[] {
-            "@@@"
+            " ☯ "
         };
     }
 

@@ -8,28 +8,29 @@ public class Platform extends Sprite {
 
     @Override
     public String[] getImage() {
+        // https://www.w3.org/TR/xml-entity-names/025.html
         return new String[] {
-            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "X         X         X         X         X         X",
-            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+            "╔═════════╤═════════╤═════════╤═════════╤═════════╗",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "╟─────────┼─────────┼─────────┼─────────┼─────────╢",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "╟─────────┼─────────┼─────────┼─────────┼─────────╢",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "╟─────────┼─────────┼─────────┼─────────┼─────────╢",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "╟─────────┼─────────┼─────────┼─────────┼─────────╢",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "║         │         │         │         │         ║",
+            "╚═════════╧═════════╧═════════╧═════════╧═════════╝"
         };
     }
 

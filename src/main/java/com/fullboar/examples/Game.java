@@ -1,11 +1,14 @@
 package com.fullboar.examples;
 
+import java.io.Console;
+
 import com.fullboar.examples.sprites.Marquee;
 import com.fullboar.examples.sprites.Platform;
 import com.fullboar.examples.sprites.Player;
 import com.fullboar.examples.subsystems.input.Keyboard;
 import com.fullboar.examples.subsystems.input.UserInterface;
 import com.fullboar.examples.subsystems.logic.GameLogic;
+import com.fullboar.examples.subsystems.rendering.BoxDrawing;
 import com.fullboar.examples.subsystems.rendering.Color;
 import com.fullboar.examples.subsystems.rendering.Renderer;
 import com.fullboar.examples.utilities.StringUtils;
@@ -18,6 +21,7 @@ public class Game
     private final UserInterface ui = new UserInterface(renderer, keyboard, logic);
 
     private final Marquee marquee = new Marquee(Color.MAGENTA);
+    private final Marquee marqueeShadow = new Marquee(Color.CYAN);
     private final Player player1 = new Player(Direction.RIGHT, Color.YELLOW);
     private final Player player2 = new Player(Direction.LEFT, Color.GREEN);
     private final Platform platform1 = new Platform(4, 5, player1.getFacing(), player1.getColor());
@@ -38,11 +42,20 @@ public class Game
             Thread.sleep(100);
         }
 
+        marqueeShadow.setPosition(marquee.getX(), marquee.getY());
+
+        marquee.moveUp(1);
+        marquee.moveForward(2);
+
+        renderer.clearSceen();
+        renderer.display(marqueeShadow);
+        renderer.display(marquee);
+
         gameState = GameState.RULES;
     }
 
     private void rules() {
-        final String input = ui.displayRulesAndConfirmNewGame(marquee);
+        final String input = ui.displayRulesAndConfirmNewGame(marquee, marqueeShadow);
 
         gameState = input.equalsIgnoreCase("Y")? GameState.SET_UP : GameState.EXITING;
 
@@ -53,8 +66,11 @@ public class Game
 
     private void setUp () {
         renderer.clearSceen();
+        renderer.display(marqueeShadow);
         renderer.display(marquee);
         renderer.displaySceen();
+
+        System.out.println(BoxDrawing.DOUBLE_HORIZONTAL.repeat(renderer.getScreenWidth()));
 
         player1.setName(keyboard.getUserInput("PLAYER 1 NAME", player1.getColor()));
         player1.setOpponent(player2);
@@ -117,6 +133,7 @@ public class Game
 
     private void gameOver () {
         ui.displayGameState(player1, platform1, player2, platform2);
+        System.out.println(BoxDrawing.DOUBLE_HORIZONTAL.repeat(renderer.getScreenWidth()));
 
         System.out.println(StringUtils.color("GAME OVER", Color.RED));
 
