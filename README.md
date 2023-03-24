@@ -20,12 +20,3 @@ This implementation has a few areas that could be improved:
 * Arrays could be used to hold all sprites
 * The player and platform state / relationship could be better managed
 * I am sure there are plenty of other things...
-
-```mermaid
-flowchart LR
-
-A[Hard] -->|Text| B(Round)
-B --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
